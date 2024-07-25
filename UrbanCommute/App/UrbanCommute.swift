@@ -4,7 +4,8 @@
 //
 //  Created by Dhruv Sharma on 14/01/24.
 //
-
+// The Main Firebase Intergation and
+// App Delgates view are happening here
 import SwiftUI
 import Firebase
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -16,14 +17,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 @main
 struct UrbanCommuteApp: App {
-    @StateObject var locationViewModel = LocationSearchViewModel()
+//    @StateObject var locationViewModel = LocationSearchViewModel()
     @StateObject var authViewModel = AuthViewModel()
+    @StateObject var homeViewModel = HomeViewModel()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
+          
             HomeView()
-                .environmentObject(locationViewModel)
-                .environment(authViewModel)
+//                .environmentObject(locationViewModel)
+                .environmentObject(authViewModel)
+                .environmentObject(homeViewModel)
         }
     }
 }

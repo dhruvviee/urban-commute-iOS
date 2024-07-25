@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RideRequestView: View {
     @State private var selectedRideType: RideType = .ucAuto
-    @EnvironmentObject var locationViewModel: LocationSearchViewModel
+    @EnvironmentObject var homeViewModel: HomeViewModel
     var body: some View {
         VStack{
             Capsule()
@@ -41,7 +41,7 @@ struct RideRequestView: View {
                             .foregroundStyle(.gray)
                         Spacer()
                         
-                        Text(locationViewModel.pickUpTime ?? " ")
+                        Text(homeViewModel.pickUpTime ?? " ")
                             .font(.system(size: 14,weight: .semibold))
                             .foregroundStyle(.gray)
                         
@@ -50,14 +50,14 @@ struct RideRequestView: View {
                     .padding(.bottom,10)
                     
                     HStack{
-                        if let location = locationViewModel.selectedUrbanCommuteLocation{
+                        if let location = homeViewModel.selectedUrbanCommuteLocation{
                             Text(location.title)
                                 .font(.system(size: 16,weight: .semibold))
                         }
                             
                         Spacer()
                         
-                        Text(locationViewModel.dropUpTime ?? "")
+                        Text(homeViewModel.dropUpTime ?? "")
                             .font(.system(size: 14,weight: .semibold))
                             .foregroundStyle(.gray)
                             
@@ -93,7 +93,7 @@ struct RideRequestView: View {
                                 Text(type.description)
                                     .font(.system(size: 14,weight: .bold))
                                 
-                                Text(locationViewModel.computeRidePrice(forType: type).toCurrency())
+                                Text(homeViewModel.computeRidePrice(forType: type).toCurrency())
                                     .font(.system(size: 14,weight: .bold))
                             } .padding()
                             
@@ -146,7 +146,7 @@ struct RideRequestView: View {
             
             // request ride button
             Button(action: {
-                
+                homeViewModel.requestTrip()
             }, label: {
                 Text("confirm ride".uppercased())
                     .font(.headline)
@@ -157,12 +157,6 @@ struct RideRequestView: View {
                     .background(Color.blue)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             })
-            
-                
-            
-            
-            
-            
             
         }
         .padding(.bottom, 24)
